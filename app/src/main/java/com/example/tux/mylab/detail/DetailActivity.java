@@ -10,10 +10,10 @@ import com.example.tux.mylab.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailActivity extends AppCompatActivity implements DetailContract.View {
+public class DetailActivity extends AppCompatActivity implements DetailContract.View, OneWaySwipeViewpager.OnSwipeListener {
     private ConstraintLayout container;
-    private DetailPresenter presenter;
     private OneWaySwipeViewpager viewPager;
+    private DetailPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +25,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         viewPager = (OneWaySwipeViewpager) findViewById(R.id.image_slider);
         ImageSliderAdapter adapter = new ImageSliderAdapter(this, presenter);
         viewPager.setAdapter(adapter);
+        viewPager.setOnTouchUpListener(this);
 
         List<String> images = new ArrayList<>();
         images.add("https://s-media-cache-ak0.pinimg.com/736x/ed/8c/50/ed8c50ed4cdb091e999ed892056e28a1.jpg");
@@ -55,5 +56,20 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
                 .y(top)
                 .setDuration(0)
                 .start();
+    }
+
+    @Override
+    public void lockSwipe() {
+        viewPager.setLockSwipe(true);
+    }
+
+    @Override
+    public void unLockSwipe() {
+        viewPager.setLockSwipe(false);
+    }
+
+    @Override
+    public void onTouchUp() {
+        presenter.touchUp();
     }
 }

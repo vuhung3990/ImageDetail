@@ -1,12 +1,16 @@
 package com.example.tux.mylab.detail;
 
+import android.util.Log;
+
 class DetailPresenter implements DetailContract.Presenter {
     private static final int THRESHOLD = 200;
+    private static final int THRESHOLD_MIN_VERTICAL = 10;
     private final DetailContract.View view;
     private float originY;
     private float dY;
     private float deltaY;
     private float halfWindowHeight;
+    private boolean isVertivalScroll = false;
 
     DetailPresenter(DetailContract.View view) {
         this.view = view;
@@ -27,17 +31,23 @@ class DetailPresenter implements DetailContract.Presenter {
         float viewY = eventRawY + dY;
         deltaY = Math.round(Math.abs(viewY - originY));
         view.fadeView(viewY, calculateViewOpacity());
-//        view.lockSwipe();
+
+        Log.d("aaaaa", Math.round(Math.abs(deltaY)) + "");
+        if (!isVertivalScroll && Math.round(Math.abs(deltaY)) > THRESHOLD_MIN_VERTICAL) {
+            isVertivalScroll = true;
+            view.lockSwipe();
+        }
     }
 
     @Override
     public void touchUp() {
+        isVertivalScroll = false;
+        view.unLockSwipe();
         if (Math.round(Math.abs(deltaY)) > THRESHOLD) {
             view.finish();
         } else {
             // restore origin view
             view.fadeView(originY, 100f);
-//            view.unLockSwipe();
         }
     }
 

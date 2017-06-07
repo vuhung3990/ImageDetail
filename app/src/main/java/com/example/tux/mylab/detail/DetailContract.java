@@ -21,6 +21,16 @@ interface DetailContract {
          * close activity
          */
         void finish();
+
+        /**
+         * lock view pager swipe
+         */
+        void lockSwipe();
+
+        /**
+         * unlock viewpager swipe
+         */
+        void unLockSwipe();
     }
 
     interface Presenter {

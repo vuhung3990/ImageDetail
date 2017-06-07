@@ -2,7 +2,6 @@ package com.example.tux.mylab.detail;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,17 +14,17 @@ import com.example.tux.mylab.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImageSliderAdapter extends PagerAdapter implements View.OnTouchListener {
+class ImageSliderAdapter extends PagerAdapter implements View.OnTouchListener {
     private List<String> images = new ArrayList<>();
     private Context context;
     private final DetailPresenter presenter;
 
-    public ImageSliderAdapter(Context context, DetailPresenter presenter) {
+    ImageSliderAdapter(Context context, DetailPresenter presenter) {
         this.context = context;
         this.presenter = presenter;
     }
 
-    public void updateData(List<String> data) {
+    void updateData(List<String> data) {
         images = data;
         notifyDataSetChanged();
     }
@@ -66,7 +65,6 @@ public class ImageSliderAdapter extends PagerAdapter implements View.OnTouchList
                 presenter.touchDown(v.getY(), event.getRawY());
                 return true;
             case MotionEvent.ACTION_MOVE:
-                Log.d("aaaa", event.getY() + "");
                 presenter.touchMove(event.getRawY());
                 return false;
             case MotionEvent.ACTION_UP:
