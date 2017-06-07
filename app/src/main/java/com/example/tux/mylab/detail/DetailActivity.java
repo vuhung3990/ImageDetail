@@ -4,17 +4,16 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.example.tux.mylab.R;
 
-public class DetailActivity extends AppCompatActivity implements View.OnTouchListener, DetailContract.View {
+import java.util.ArrayList;
+import java.util.List;
+
+public class DetailActivity extends AppCompatActivity implements DetailContract.View {
     private ConstraintLayout container;
-    private ImageView imageView;
     private DetailPresenter presenter;
+    private OneWaySwipeViewpager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,30 +21,16 @@ public class DetailActivity extends AppCompatActivity implements View.OnTouchLis
         setContentView(R.layout.activity_second);
 
         presenter = new DetailPresenter(this);
-
-        imageView = (ImageView) findViewById(R.id.imageView);
         container = (ConstraintLayout) findViewById(R.id.container);
-        Glide.with(this)
-                .load("http://www.androidhive.info/wp-content/uploads/2016/04/building-image-gallery-all-with-glide.jpg")
-                .into(imageView);
-        imageView.setOnTouchListener(this);
-    }
+        viewPager = (OneWaySwipeViewpager) findViewById(R.id.image_slider);
+        ImageSliderAdapter adapter = new ImageSliderAdapter(this, presenter);
+        viewPager.setAdapter(adapter);
 
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                presenter.touchDown(v, event);
-                return true;
-            case MotionEvent.ACTION_MOVE:
-                presenter.touchMove(event);
-                return false;
-            case MotionEvent.ACTION_UP:
-                presenter.touchUp();
-                return false;
-            default:
-                return false;
-        }
+        List<String> images = new ArrayList<>();
+        images.add("https://s-media-cache-ak0.pinimg.com/736x/ed/8c/50/ed8c50ed4cdb091e999ed892056e28a1.jpg");
+        images.add("https://s-media-cache-ak0.pinimg.com/736x/76/5b/f9/765bf93cd4280bab642329b597f1205e.jpg");
+        images.add("https://s-media-cache-ak0.pinimg.com/736x/50/7d/ec/507dec046e33c14c2c5de70f669aab7d.jpg");
+        adapter.updateData(images);
     }
 
     @Override
@@ -66,7 +51,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnTouchLis
                 .start();
 
         // move content
-        imageView.animate()
+        viewPager.animate()
                 .y(top)
                 .setDuration(0)
                 .start();

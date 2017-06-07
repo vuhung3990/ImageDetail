@@ -27,19 +27,19 @@ interface DetailContract {
         /**
          * on touch down
          *
-         * @param v     image
-         * @param event touch event
+         * @param originViewY to save origin of view
+         * @param eventRawY   to calculate distance from top of view to top of touch point
          * @see MotionEvent#ACTION_DOWN
          */
-        void touchDown(android.view.View v, MotionEvent event);
+        void touchDown(float originViewY, float eventRawY);
 
         /**
          * on touch move
          *
-         * @param event touch event
+         * @param eventRawY calculate top of view when drag
          * @see MotionEvent#ACTION_MOVE
          */
-        void touchMove(MotionEvent event);
+        void touchMove(float eventRawY);
 
         /**
          * on touch up

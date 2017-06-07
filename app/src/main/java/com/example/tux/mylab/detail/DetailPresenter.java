@@ -1,10 +1,7 @@
 package com.example.tux.mylab.detail;
 
-import android.view.MotionEvent;
-import android.view.View;
-
 class DetailPresenter implements DetailContract.Presenter {
-    private static final int THRESHOLD = 100;
+    private static final int THRESHOLD = 200;
     private final DetailContract.View view;
     private float originY;
     private float dY;
@@ -17,20 +14,20 @@ class DetailPresenter implements DetailContract.Presenter {
     }
 
     @Override
-    public void touchDown(View v, MotionEvent event) {
+    public void touchDown(float originViewY, float eventRawY) {
         // to restore
-        originY = v.getY();
+        originY = originViewY;
         // calculate distance from top of view to top of touch point
-        dY = originY - event.getRawY();
+        dY = originY - eventRawY;
     }
 
     @Override
-    public void touchMove(MotionEvent event) {
+    public void touchMove(float eventRawY) {
         // calculate top of view when drag
-        float viewY = event.getRawY() + dY;
-
-        deltaY = viewY - originY;
+        float viewY = eventRawY + dY;
+        deltaY = Math.round(Math.abs(viewY - originY));
         view.fadeView(viewY, calculateViewOpacity());
+//        view.lockSwipe();
     }
 
     @Override
@@ -40,6 +37,7 @@ class DetailPresenter implements DetailContract.Presenter {
         } else {
             // restore origin view
             view.fadeView(originY, 100f);
+//            view.unLockSwipe();
         }
     }
 
