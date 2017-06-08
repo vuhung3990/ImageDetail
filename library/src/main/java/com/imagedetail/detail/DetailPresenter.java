@@ -1,15 +1,22 @@
-package com.example.tux.mylab.detail;
-
-import android.util.Log;
+package com.imagedetail.detail;
 
 class DetailPresenter implements DetailContract.Presenter {
+    /**
+     * half device height
+     */
+    private float halfWindowHeight;
+    /**
+     * min value for finish detail
+     */
     private static final int THRESHOLD = 200;
+    /**
+     * min value for lock viewpager, it's important for disable swipe viewpager when swipe up|down
+     */
     private static final int THRESHOLD_MIN_VERTICAL = 10;
     private final DetailContract.View view;
     private float originY;
     private float dY;
     private float deltaY;
-    private float halfWindowHeight;
     private boolean isVertivalScroll = false;
 
     DetailPresenter(DetailContract.View view) {
@@ -32,7 +39,6 @@ class DetailPresenter implements DetailContract.Presenter {
         deltaY = Math.round(Math.abs(viewY - originY));
         view.fadeView(viewY, calculateViewOpacity());
 
-        Log.d("aaaaa", Math.round(Math.abs(deltaY)) + "");
         if (!isVertivalScroll && Math.round(Math.abs(deltaY)) > THRESHOLD_MIN_VERTICAL) {
             isVertivalScroll = true;
             view.lockSwipe();

@@ -1,4 +1,4 @@
-package com.example.tux.mylab.detail;
+package com.imagedetail.detail;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

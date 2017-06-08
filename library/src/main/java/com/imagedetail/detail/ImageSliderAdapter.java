@@ -1,4 +1,4 @@
-package com.example.tux.mylab.detail;
+package com.imagedetail.detail;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -9,15 +9,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.example.tux.mylab.R;
+import com.imagedetail.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 class ImageSliderAdapter extends PagerAdapter implements View.OnTouchListener {
+    private final DetailPresenter presenter;
     private List<String> images = new ArrayList<>();
     private Context context;
-    private final DetailPresenter presenter;
 
     ImageSliderAdapter(Context context, DetailPresenter presenter) {
         this.context = context;

@@ -1,4 +1,4 @@
-package com.example.tux.mylab.detail;
+package com.imagedetail.detail;
 
 import android.view.MotionEvent;
 
