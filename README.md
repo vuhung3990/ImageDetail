@@ -5,7 +5,7 @@
   - swipe up|down to dismiss
  
 # demo 
-![demo 1]("https://github.com/vuhung3990/ImageDetail/raw/master/Peek%202017-06-08%2010-48.gif")
+![demo 1](./demo.gif)
 # usage
 ```
 ArrayList<String> imageUrls = new ArrayList<>();
