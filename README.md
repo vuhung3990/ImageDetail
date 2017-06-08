@@ -1,6 +1,9 @@
 
 Simple demo for show image detail
 -------------
+![demo 1](https://github.com/vuhung3990/ImageDetail/raw/master/1.png)
+![demo 2](https://github.com/vuhung3990/ImageDetail/raw/master/2.png)
+
 [video demo](https://www.youtube.com/watch?v=faA-wHg3poM)
 
 **usage:**
